@@ -1,0 +1,8 @@
+#!/bin/sh
+# Show branches that were pushed recently 
+
+git ls-remote --heads origin | \
+    awk '{ while ("git show --no-patch --format=%ct " $1 " 2>/dev/null" | getline var) print var":"$2 }' | \
+    sort -r | sed 's/^.*:refs\/heads\///' | head -n 10
+
+# ex: set ts=4 sw=4 et syntax=sh :
